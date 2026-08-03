@@ -4,15 +4,25 @@ Publisher::Publisher(/* args */)
 {
 }
 
+void Publisher::Register(void)
+{
+    // TODO: 注册发布
+}
+
 Publisher::~Publisher()
 {
-    // 注销发布
+    // TODO:  注销发布
 }
 Subscriber::Subscriber()
 {
 }
 
+void Subscriber::Register(void)
+{
+    // TODO: 注册订阅
+}
+
 Subscriber::~Subscriber()
 {
-    // 注销订阅
+    // TODO:  注销订阅
 }
