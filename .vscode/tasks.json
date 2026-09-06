@@ -8,7 +8,11 @@
                 "-S",
                 "${workspaceFolder}",
                 "-B",
-                "${workspaceFolder}/build"
+                "${workspaceFolder}/build",
+                "-G",
+                "MinGW Makefiles",
+                "-DCMAKE_C_COMPILER=gcc",
+                "-DCMAKE_CXX_COMPILER=g++"
             ],
             "problemMatcher": []
         },
@@ -18,12 +22,10 @@
             "command": "cmake",
             "args": [
                 "--build",
-                "${workspaceFolder}/build",
-                "--config",
-                "Debug"
+                "${workspaceFolder}/build"
             ],
             "problemMatcher": [
-                "$msCompile"
+                "$gcc"
             ],
             "group": {
                 "kind": "build",

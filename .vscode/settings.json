@@ -1,0 +1,23 @@
+{
+    // VS2022 已卸载，改用 llvm-mingw 的 Clang 22 工具链（x86_64, UCRT）
+    "cmake.generator": "MinGW Makefiles",
+    "cmake.configureSettings": {
+        "CMAKE_C_COMPILER": "C:/Users/Carect/AppData/Local/Microsoft/WinGet/Packages/MartinStorsjo.LLVM-MinGW.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/llvm-mingw-20260616-ucrt-x86_64/bin/clang.exe",
+        "CMAKE_CXX_COMPILER": "C:/Users/Carect/AppData/Local/Microsoft/WinGet/Packages/MartinStorsjo.LLVM-MinGW.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/llvm-mingw-20260616-ucrt-x86_64/bin/clang++.exe"
+    },
+    "cmake.environment": {
+        "PATH": "C:/Users/Carect/AppData/Local/Microsoft/WinGet/Packages/MartinStorsjo.LLVM-MinGW.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/llvm-mingw-20260616-ucrt-x86_64/bin;${env:PATH}"
+    },
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+
+    // 代码分析改用 clangd（clang 亲儿子，正确解析 llvm-mingw 的 libc++ 头文件）
+    "clangd.path": "C:/Users/Carect/AppData/Local/Microsoft/WinGet/Packages/MartinStorsjo.LLVM-MinGW.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/llvm-mingw-20260616-ucrt-x86_64/bin/clangd.exe",
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}/build",
+        "--background-index",
+        "--header-insertion=never"
+    ],
+    // 停用 cpptools 的 IntelliSense，避免误报（保留其调试功能）
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "C_Cpp.default.compilerPath": "C:/Users/Carect/AppData/Local/Microsoft/WinGet/Packages/MartinStorsjo.LLVM-MinGW.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/llvm-mingw-20260616-ucrt-x86_64/bin/clang.exe"
+}

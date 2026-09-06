@@ -1,4 +1,5 @@
 #ifndef MSG_HPP
 #define MSG_HPP
-#include <iostream>
+
+#include "all.hpp"
 #endif // MSG_HPP

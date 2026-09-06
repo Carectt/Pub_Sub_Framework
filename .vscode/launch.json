@@ -3,30 +3,17 @@
     "configurations": [
         {
             "name": "C++: Debug Pub_Sub_Framework",
-            "type": "cppvsdbg",
+            "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/Debug/Pub_Sub_Framework.exe",
+            "program": "${workspaceFolder}/build/Pub_Sub_Framework.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "console": "externalTerminal",
+            "MIMode": "lldb",
+            "miDebuggerPath": "C:/Users/Carect/AppData/Local/Microsoft/WinGet/Packages/MartinStorsjo.LLVM-MinGW.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/llvm-mingw-20260616-ucrt-x86_64/bin/lldb-mi.exe",
             "preLaunchTask": "CMake: Build Debug"
-        }
-    ]
-}
-{
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "CMake: CMake Script",
-            "type": "cmake",
-            "request": "launch",
-            "cmakeDebugType": "script",
-            "scriptPath": "${file}"
         }
     ]
 }

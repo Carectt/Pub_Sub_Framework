@@ -21,7 +21,6 @@ set(SOURCES
     Src/Broker.cpp
     Src/Msg.cpp
     Src/Pub_Sub.cpp
-    Src/Topic.cpp
     Src/main.cpp
 )
 
