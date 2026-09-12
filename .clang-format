@@ -1,0 +1,7 @@
+# 项目统一格式：基于 LLVM 风格，仅将缩进宽度改回 4 空格
+# clangd / clang-format 保存时自动读取此文件
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+AccessModifierOffset: -2

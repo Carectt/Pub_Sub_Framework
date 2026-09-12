@@ -1,0 +1,6 @@
+# clangd 配置
+# Pub_Sub_Framework 的公用头 all.hpp 故意预留 <condition_variable> 等
+# 后续 Broker 线程安全分发要用的标准库包含，clangd 的"未使用包含"
+# 检查对本项目没有意义，直接关闭。
+Diagnostics:
+  UnusedIncludes: None
