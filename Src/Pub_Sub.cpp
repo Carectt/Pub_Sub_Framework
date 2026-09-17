@@ -73,6 +73,7 @@ void Subscriber::Register(const std::string &channel) {
                 lock, [this] { return this->temp_data.has_value(); }); // cv等待
             this->data = this->temp_data;
             this->temp_data.reset();
+            this->processed_count.fetch_add(1, std::memory_order_relaxed); // 消息转入可读槽后计数加一
         }
         // lock.unlock();
     });
@@ -85,6 +86,7 @@ void Subscriber::Msg_Push(const std::shared_ptr<Msg> &msg) {
     if (this->temp_data.has_value() == false) // if上一个msg已经被处理好了
     {
         this->temp_data = msg;
+        this->accepted_count.fetch_add(1, std::memory_order_relaxed); // 消息进入临时槽后计数加一
         this->cv.notify_one();
     }
 }

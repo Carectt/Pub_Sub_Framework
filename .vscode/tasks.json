@@ -1,43 +1,19 @@
 {
+    "version": "2.0.0",
     "tasks": [
         {
             "label": "CMake: Configure",
             "type": "shell",
             "command": "cmake",
-            "args": [
-                "-S",
-                "${workspaceFolder}",
-                "-B",
-                "${workspaceFolder}/build",
-                "-G",
-                "MinGW Makefiles",
-                "-DCMAKE_C_COMPILER=C:/Users/Carect/AppData/Local/Microsoft/WinGet/Packages/MartinStorsjo.LLVM-MinGW.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/llvm-mingw-20260616-ucrt-x86_64/bin/clang.exe",
-                "-DCMAKE_CXX_COMPILER=C:/Users/Carect/AppData/Local/Microsoft/WinGet/Packages/MartinStorsjo.LLVM-MinGW.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/llvm-mingw-20260616-ucrt-x86_64/bin/clang++.exe",
-                "-DCMAKE_BUILD_TYPE=Debug"
-            ],
-            "options": {
-                "env": {
-                    "PATH": "C:/Users/Carect/AppData/Local/Microsoft/WinGet/Packages/MartinStorsjo.LLVM-MinGW.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/llvm-mingw-20260616-ucrt-x86_64/bin;${env:PATH}"
-                }
-            },
+            "args": ["-S", "${workspaceFolder}", "-B", "${workspaceFolder}/build"],
             "problemMatcher": []
         },
         {
             "label": "CMake: Build Debug",
             "type": "shell",
             "command": "cmake",
-            "args": [
-                "--build",
-                "${workspaceFolder}/build"
-            ],
-            "options": {
-                "env": {
-                    "PATH": "C:/Users/Carect/AppData/Local/Microsoft/WinGet/Packages/MartinStorsjo.LLVM-MinGW.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/llvm-mingw-20260616-ucrt-x86_64/bin;${env:PATH}"
-                }
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "args": ["--build", "${workspaceFolder}/build"],
+            "problemMatcher": ["$gcc"],
             "group": {
                 "kind": "build",
                 "isDefault": false
@@ -45,16 +21,12 @@
         },
         {
             "label": "CMake: Configure + Build",
-            "dependsOn": [
-                "CMake: Configure",
-                "CMake: Build Debug"
-            ],
+            "dependsOn": ["CMake: Configure", "CMake: Build Debug"],
             "dependsOrder": "sequence",
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
         }
-    ],
-    "version": "2.0.0"
+    ]
 }

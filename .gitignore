@@ -1,4 +1,5 @@
 # VS Code
+.workbuddy/
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -25,6 +26,7 @@ x86/
 [Oo]bj/
 [Oo]ut/
 build/
+tests/build-*/
 bld/
 
 # 编译产物文件

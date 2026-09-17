@@ -3,6 +3,7 @@
 
 #include "Msg.hpp"
 #include "all.hpp"
+#include <atomic>
 
 class Publisher {
   private:
@@ -25,12 +26,16 @@ class Subscriber {
     std::mutex mtx;
     std::any temp_data; // 用于临时储存
     std::any data = std::make_shared<Msg>(0, 0);
+    std::atomic<uint64_t> accepted_count{0};  // 已进入临时消息槽的消息数，初始为 0
+    std::atomic<uint64_t> processed_count{0}; // 已转入可读消息槽的消息数，初始为 0
     ; // 用于读取的msg数据
       // Msg hold_msg;
 
   public:
     void Register(const std::string &channel);
     void Msg_Push(const std::shared_ptr<Msg> &msg);
+    uint64_t Accepted_Count() const { return accepted_count.load(); }   // 读取已接收数量的当前快照
+    uint64_t Processed_Count() const { return processed_count.load(); } // 读取已处理数量的当前快照
     template <typename T> T Get_Value();
     // void consume()
     Subscriber(/* args */);
