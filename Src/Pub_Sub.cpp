@@ -48,7 +48,9 @@ void Map_Add(const std::string &channel) // Overload函数，用于pub先创立c
 Publisher::Publisher(/* args */) {}
 
 void Publisher::Register(std::string channel) {
+    std::unique_lock<std::mutex> reg_lock(Map_mtx);
     Map_Add(channel);
+    reg_lock.unlock();
     this->Channel = channel;
     // TODO: 注册发布
 }
@@ -59,14 +61,19 @@ Publisher::~Publisher() {
 Subscriber::Subscriber() {}
 
 void Subscriber::Register(const std::string &channel) {
+    std::unique_lock<std::mutex> reg_lock(Map_mtx);
     Map_Add(channel, this);
+    reg_lock.unlock();
     this->Channel = channel;
     // 使用thread和核心交互，确保pub的遍历不会卡住
     std::thread Sub_thread([this]() {
-        std::unique_lock<std::mutex> lock(this->mtx); // 上锁
-        this->cv.wait(lock,
-                      [this] { return this->temp_data.has_value(); }); // cv等待
-        this->data = this->temp_data;
+        while (true) {
+            std::unique_lock<std::mutex> lock(this->mtx); // 上锁
+            this->cv.wait(
+                lock, [this] { return this->temp_data.has_value(); }); // cv等待
+            this->data = this->temp_data;
+            this->temp_data.reset();
+        }
         // lock.unlock();
     });
     Sub_thread.detach();

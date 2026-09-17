@@ -24,8 +24,9 @@ class Subscriber {
     std::condition_variable cv;
     std::mutex mtx;
     std::any temp_data; // 用于临时储存
-    std::any data;      // 用于读取的数据
-                        // Msg hold_msg;
+    std::any data = std::make_shared<Msg>(0, 0);
+    ; // 用于读取的msg数据
+      // Msg hold_msg;
 
   public:
     void Register(const std::string &channel);
@@ -41,17 +42,24 @@ void Map_Add(const std::string &channel);
 inline std::unordered_map<std::string, std::vector<Subscriber *>> Reg_Map;
 
 template <typename P> inline void Publisher::Notify(const P &data) {
-    auto msg = std::make_shared<Msg>(this->Num_Cnt, data);
-    if (this->Channel != "None") {
-        auto it = Reg_Map.find(this->Channel);
-        for (int i = 0; i < it->second.size(); i++) {
-            it->second[i]->Msg_Push(msg);
+    if (this->Channel.empty() == false) {
+        auto msg = std::make_shared<Msg>(this->Num_Cnt, data);
+        if (this->Channel != "None") {
+            this->Num_Cnt++;
+            auto it = Reg_Map.find(this->Channel);
+            for (int i = 0; i < it->second.size(); i++) {
+                it->second[i]->Msg_Push(msg);
+            }
         }
+    } else {
+        return;
     }
 }
 #endif // PUB_SUB_HPP
 
 template <typename T> inline T Subscriber::Get_Value() {
     std::unique_lock<std::mutex> lock(this->mtx);
-    return T(std::any_cast<T>(this->data));
+    const auto &msg = std::any_cast<const std::shared_ptr<Msg> &>(this->data);
+    return std::any_cast<T>(msg->payload);
+    //
 }
